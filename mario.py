@@ -54,3 +54,22 @@ while True:
     if enemy['rect'].left <= 0 or enemy['rect'].right > W:
       #端に来た時は向きを反転させる
       enemy['dir'] *= -1
+
+    if enemy['rect'].colliderect(pygame.Rect(mx, my, 20, 20)) and vy > 0:
+      #マリオとヒットし、下に移動している時
+      enemies.remove(enemy)
+      #踏んだ時にちょっとジャンプ
+      vy = -10
+
+  #背景を水色に塗りつぶし
+  win.fill((135, 206, 235))
+  #マリオを描画
+  pygame.draw.rect(win, (255, 0, 0), (mx, my, 20, 20))
+
+  #敵を描画
+  for enemy in enemies:
+    pygame.draw.rect(win, (0, 255, 0), enemy['rect'])
+
+  #画面を更新
+  pygame.display.flip()
+  clock.tick(30)
